@@ -32,12 +32,17 @@ def snippet_list(request, format=None):
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def snippet_detail(request, pk, format=None):
-    snippet = get_object_or_404(Snippet, pk=pk)
-    if request.method=='GET':
+    
+    try:
+        snippet = Snippet.objects.get(pk=pk)
+    except Snippet.DoesNotExist:
+        Response(status=status.HTTP_404_NOT_FOUND)
+    
+    if request.method =='GET':
         serializer = SnippetSerializer(snippet)
         return JsonResponse(serializer.data)
     
-    elif request.method=='PUT':
+    elif request.method =='PUT':
         data = JSONParser().parse(request)
         serializer = SnippetSerializer(snippet, data=data)
         if serializer.is_valid():
