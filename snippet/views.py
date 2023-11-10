@@ -34,6 +34,10 @@ class SnippetViewSet(viewsets.ModelViewSet):
     `update` and `destroy` actions.
 
     Additionally we also provide an extra `highlight` action.
+    
+    https://www.github/pemochamdev
+    """
+    """
     """
     queryset = Snippet.objects.all()
     serializer_class = SnippetSerializer
